@@ -21,6 +21,7 @@ jobs:
         run: |
           base64 --decode ProjectInterlink-source.zip.base64 > project.zip
           unzip -q project.zip
+          printf 'android.useAndroidX=true\n' > ProjectInterlink/gradle.properties
           chmod +x ProjectInterlink/gradlew
 
       - name: Set up JDK 17
