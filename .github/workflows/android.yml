@@ -21,7 +21,12 @@ jobs:
         run: |
           base64 --decode ProjectInterlink-source.zip.base64 > project.zip
           unzip -q project.zip
-          printf 'android.useAndroidX=true\n' > ProjectInterlink/gradle.properties
+          cat > ProjectInterlink/gradle.properties <<'EOF'
+          android.useAndroidX=true
+          org.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8
+          org.gradle.workers.max=2
+          kotlin.daemon.jvmargs=-Xmx1g
+          EOF
           chmod +x ProjectInterlink/gradlew
 
       - name: Set up JDK 17
